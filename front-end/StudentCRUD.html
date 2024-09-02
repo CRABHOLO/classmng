@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Student</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Data Table-->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+</head>
+
+<body>
+  <!-- Class Data Table -->
+  <div class="container">
+    <div class="text-center my-4">
+      <h2>Danh sách học sinh</h2>
+    </div>
+    <input type="button" class="btn btn-success form-group" value="Thêm học sinh" id="btn-add-student"
+      data-toggle='modal' data-target='#insert-student-modal'>
+    <table class="table table-bordered table-striped table-hover text-center" id="student-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>student Code</th>
+          <th>student Name</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Date Of Birth</th>
+          <th>Phone Number</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <!-- Vùng Modal -->
+
+  <!-- Create Class modal -->
+  <div id="create-student-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm Class</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Student Code</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-studentCode">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Student Name</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-studentName">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Gender</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-gender">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Address</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-address">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Date Of Birth</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-date">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Phone </label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-phone">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Class</label>
+              </div>
+              <div class="col-sm-8">
+                <select name="" id="select-class-id" class="form-control">
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" id="btn-create-student">Insert Class</button>
+          <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Vùng Modal -->
+
+  <!-- Update Class modal -->
+  <div id="update-student-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Chi tiết Student</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Student Code</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-update-studentCode">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>student Name</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-update-studentName">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Gender</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-update-gender">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Address</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-update-address">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Date Of Birth</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-update-date">
+              </div>
+            </div>
+            <div class="row form-group">
+              <div class="col-sm-4">
+                <label>Phone Number</label>
+              </div>
+              <div class="col-sm-8">
+                <input class="form-control" id="inp-update-phone">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success" id="btn-update-student">Update Student</button>
+          <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Vùng Modal -->
+
+  <!-- Delete confirm modal -->
+  <div id="delete-student-modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm xóa Class</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Bạn có chắc chắn muốn xóa Student này không?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" id="btn-confirm-delete-student">Xác nhận</button>
+          <button class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Vùng Modal -->
+
+</body>
+<script>
+  "use strict";
+  /*** REGION 1 - Global variables - Vùng khai báo biến, hằng số, tham số TOÀN CỤC */
+
+  // Khai báo biến mảng hằng số chứa danh sách tên các thuộc tính
+  const gstudent_COLS = ["id", "studentCode", "studentName", "gender", "dateOfBirth", "address", "phoneNumber", "action"];
+  // Biến mảng toàn cục định nghĩa chỉ số các cột tương ứng
+  const gstudent_ID_COL = 0;
+  const gstudent_CODE_COL = 1;
+  const gstudent_NAME_COL = 2;
+  const gstudent_GENDER_COL = 3;
+  const gstudent_DATE_OF_BIRTH_COL = 5;
+  const gstudent_ADDRESS_COL = 4;
+  const gstudent_PHONE_COL = 6;
+  const gstudent_ACTION_COL = 7;
+  // Khai báo DataTable & mapping collumns
+  var gstudentTable = $("#student-table").DataTable({
+    columns: [
+      { data: gstudent_COLS[gstudent_ID_COL] },
+      { data: gstudent_COLS[gstudent_CODE_COL] },
+      { data: gstudent_COLS[gstudent_NAME_COL] },
+      { data: gstudent_COLS[gstudent_GENDER_COL] },
+      { data: gstudent_COLS[gstudent_DATE_OF_BIRTH_COL] },
+      { data: gstudent_COLS[gstudent_ADDRESS_COL] },
+      { data: gstudent_COLS[gstudent_PHONE_COL] },
+      { data: gstudent_COLS[gstudent_ACTION_COL] }
+    ],
+    columnDefs: [
+      {
+        targets: gstudent_ACTION_COL,
+        className: "text-center",
+        defaultContent: `
+                <button class="btn btn-primary btn-edit">Sửa</button>
+                <button class="btn btn-danger btn-delete" data-toggle='modal'>Xóa</button>
+                `
+      }
+    ],
+    autoWidth: false
+  });
+  var gIdOfClass = "";
+  var gListClasss = [];
+
+  /*** REGION 2 - Vùng gán / thực thi sự kiện cho các elements */
+  $(document).ready(function () {
+    onLoadPaging();
+    $("#btn-add-student").on("click", function () {
+      onBtnAddNewStudentClick();
+    });
+
+    $("#student-table").on("click", ".btn-edit", function () {
+      onBtnEditClick(this);
+    });
+
+
+    $("#student-table").on("click", ".btn-delete", function () {
+
+      onIconDeleteStudentClick(this);
+    });
+
+    $("#btn-create-student").on("click", function () {
+      onBtnCreateStudentClick();
+    });
+
+    $("#btn-update-student").on("click", function () {
+      onBtnUpdateStudentClick();
+
+    });
+    $("#btn-confirm-delete-student").on("click", function () {
+      onBtnConfirmDeleteStudentClick();
+    });
+    loadClassrooms();
+  });
+  /*** REGION 3 - Event handlers - Vùng khai báo các hàm xử lý sự kiện */
+  function onLoadPaging() {
+    "use strict";
+    getAllClasss();
+    loadDataToClassTable(gListClasss);
+  }
+  function onBtnAddNewStudentClick() {
+    $("#create-student-modal").modal("show");
+  }
+  //hàm xử lý sự kiện click nút sửa
+  function onBtnEditClick(paramButtonElement) {
+    "use strict";
+    var vRowClick = $(paramButtonElement).closest("tr");
+    var vDataRow = gstudentTable.row(vRowClick).data();
+    gIdOfClass = vDataRow.id;
+    console.log("ID = " + gIdOfClass);
+    showUpdateStudentModal(vDataRow);
+  }
+
+  function onIconDeleteStudentClick(paramButtonElement) {
+    "use strict";
+    var vRowClick = $(paramButtonElement).closest("tr");
+    var vDataRow = gstudentTable.row(vRowClick).data();
+    gIdOfClass = vDataRow.id;
+    console.log("ID = " + gIdOfClass);
+    $("#delete-student-modal").modal("show");
+  }
+
+  function onBtnCreateStudentClick() {
+    "use strict";
+    var vStudentObj = {
+      studentCode: "",
+      studentName: "",
+      gender: "",
+      dateOfBirth: "",
+      address: "",
+      phoneNumber: "",
+    }
+    getStudentDataCreate(vStudentObj);
+    var vIsClassValidate = validateInsertData(vStudentObj);
+    if (vIsClassValidate) {
+      postStudentApi(vStudentObj);
+      getAllClasss();
+      loadDataToClassTable(gListClasss);
+      resertCreateClassForm();
+      $("#create-student-modal").modal("hide");
+    }
+  }
+
+  function onBtnUpdateStudentClick() {
+    "use strict";
+    var vStudentObj = {
+      studentCode: "",
+      studentName: "",
+      gender: "",
+      dateOfBirth: "",
+      address: "",
+      phoneNumber: "",
+    }
+    getStudentDataUpdate(vStudentObj);
+    console.log(vStudentObj);
+    var vIsClassValidate = validateUpdateData(vStudentObj);
+    if (vIsClassValidate) {
+      updateStudentById(vStudentObj);
+      getAllClasss();
+      loadDataToClassTable(gListClasss);
+      resetUpdateStudentModalForm();
+      $("#update-student-modal").modal("hide");
+    }
+  }
+
+  function onBtnConfirmDeleteStudentClick() {
+    "use strict";
+    $.ajax({
+      type: 'delete',
+      url: "http://localhost:8080/api/student/"  + gIdOfClass,
+      dataType: 'json',
+      success: function (paramData) {
+        console.log(paramData);
+        alert("Đã xóa Student thành công!");
+        getAllClasss();
+        loadDataToClassTable(gListClasss);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+    
+    $("#delete-student-modal").modal("hide");
+  }
+
+  /*** REGION 4 - Common funtions - Vùng khai báo hàm dùng chung trong toàn bộ chương trình*/
+  function getAllClasss() {
+    "use strict";
+    $.ajax({
+      async: false,
+      url: "http://localhost:8080/api/students",
+      type: "GET",
+      dataType: "json",
+      success: function (res) {
+        gListClasss = res;
+        console.log(gListClasss)
+      },
+      error: function (error) {
+        console.log(error.responseText);
+      }
+    })
+  }
+
+  function loadDataToClassTable(paramObjectClasss) {
+    gstudentTable.clear();
+    gstudentTable.rows.add(paramObjectClasss);
+    gstudentTable.draw();
+  }
+  // hàm thu thập dữ liệu để insert Class
+  function getStudentDataCreate(paramClassObj) {
+    "use strict";
+    paramClassObj.studentCode = $("#inp-studentCode").val().trim();
+    paramClassObj.studentName = $("#inp-studentName").val().trim();
+    paramClassObj.gender = $("#inp-gender").val().trim();
+    paramClassObj.dateOfBirth = $("#inp-date").val().trim();
+    paramClassObj.address = $("#inp-address").val().trim();
+    paramClassObj.phoneNumber = $("#inp-phone").val().trim();
+    var classId = $("#select-class-id").val();
+    paramClassObj.classroom = {
+      id: classId
+    };
+
+  }
+  function validateInsertData(paramClassObj) {
+    "use strict";
+    if (paramClassObj.studentCode == "") {
+      alert("cần nhập đầy đủ thông tin");
+      return false;
+    };
+    if (paramClassObj.studentName == "") {
+      alert("ccần nhập đầy đủ thông tin");
+      return false;
+    };
+    if (paramClassObj.gender == "") {
+      alert("cần nhập đầy đủ thông tin ");
+      return false;
+    };
+    if (paramClassObj.dateOfBirth == "") {
+      alert("cần nhập đầy đủ thông tin ");
+      return false;
+    };
+    if (paramClassObj.address == "") {
+      alert("cần nhập đầy đủ thông tin ");
+      return false;
+    };
+    if (paramClassObj.phoneNumber == "") {
+      alert("cần nhập đầy đủ thông tin");
+      return false;
+    };
+
+    return true;
+  }
+  
+  function postStudentApi(paramClassObj) {
+    var selectedClassroom = $('#select-class-id option:selected');
+    "use strict";
+    $.ajax({
+      async: false,
+      url: "http://localhost:8080/api/student/"  + selectedClassroom.val() ,
+      type: "POST",
+      data: JSON.stringify(paramClassObj),
+      contentType: "application/json",
+      success: function (res) {
+        console.log(res);
+        alert("Thêm hoc sinh thành công!");
+      },
+      error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  }
+  //hàm hiện modal update cùng thông tin của Class
+  function showUpdateStudentModal(paramDataRow) {
+    "use strict";
+    console.log(paramDataRow);
+    $("#update-student-modal").modal("show");
+    $("#inp-update-studentCode").val(paramDataRow.studentCode);
+    $("#inp-update-studentName").val(paramDataRow.studentName);
+    $("#inp-update-address").val(paramDataRow.address);
+    $("#inp-update-gender").val(paramDataRow.gender);
+    $("#inp-update-date").val(paramDataRow.dateOfBirth);
+    $("#inp-update-phone").val(paramDataRow.phoneNumber);
+  }
+  function getStudentDataUpdate(paramClassObj) {
+    "use strict";
+    paramClassObj.studentCode = $("#inp-update-studentCode").val().trim();
+    paramClassObj.studentName = $("#inp-update-studentName").val().trim();
+    paramClassObj.gender = $("#inp-update-gender").val().trim();
+    paramClassObj.dateOfBirth = $("#inp-update-date").val().trim();
+    paramClassObj.address = $("#inp-update-address").val().trim();
+    paramClassObj.phoneNumber = $("#inp-update-phone").val().trim();
+  }
+  function validateUpdateData(paramClassObj) {
+    "use strict";
+    if (paramClassObj.studentCode == "") {
+      alert("cần nhập đầy đủ thông tin");
+      return false;
+    };
+    if (paramClassObj.studentName == "") {
+      alert("ccần nhập đầy đủ thông tin");
+      return false;
+    };
+    if (paramClassObj.gender == "") {
+      alert("cần nhập đầy đủ thông tin ");
+      return false;
+    };
+    if (paramClassObj.dateOfBirth == "") {
+      alert("cần nhập đầy đủ thông tin ");
+      return false;
+    };
+    if (paramClassObj.address == "") {
+      alert("cần nhập đầy đủ thông tin ");
+      return false;
+    };
+    if (paramClassObj.phoneNumber == "") {
+      alert("cần nhập đầy đủ thông tin");
+      return false;
+    };
+    return true;
+  }
+  function updateStudentById(paramClassObj) {
+    "use strict";
+    $.ajax({
+      async: false,
+      url: "http://localhost:8080/api/student/"  + gIdOfClass,
+      type: "PUT",
+      data: JSON.stringify(paramClassObj),
+      contentType: "application/json",
+      success: function (res) {
+        console.log(res);
+        alert("Đã update Student thành công!");
+      },
+      error: function (error) {
+        alert(error.responseText);
+      }
+    });
+  }
+
+  function resertCreateClassForm() {
+    $("#inp-studentCode").val("");
+    $("#inp-studentName").val("");
+    $("#inp-gender").val("");
+    $("#inp-date").val("");
+    $("#inp-phone").val("");
+    $("#inp-address").val("");
+
+  }
+
+  function resetUpdateStudentModalForm() {
+    "use strict";
+
+    $("#inp-update-studentCode").val("");
+    $("#inp-update-studentName").val("");
+    $("#inp-update-gender").val("");
+    $("#inp-update-phone").val("");
+    $("#inp-update-address").val("");
+    $("#inp-update-date").val("");
+
+  }
+  function loadClassrooms() {
+    $.ajax({
+      url: 'http://localhost:8080/api/classrooms',
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        var selectClass = $('#select-class-id');
+        selectClass.empty();
+        selectClass.append('<option value="">Not in any classroom</option>');
+        $.each(data, function (index, classroom) {
+          selectClass.append('<option value="' + classroom.id + '">' + classroom.className + '</option>');
+        });
+      },
+      error: function (error) {
+        console.log('Error:', error);
+      }
+    });
+  }
+</script>
+
+</html>
